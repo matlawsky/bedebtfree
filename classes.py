@@ -1,5 +1,5 @@
 class Debt:
-    def __init__(self, id, title, to_whom, how_much, date, paid=False, paid_off=0):
+    def __init__(self, id, title, to_whom, how_much, date, paid=False, paid_off=0) -> None:
         self.id = id
         self.title = title
         self.to_whom = to_whom
@@ -8,7 +8,7 @@ class Debt:
         self.paid = paid
         self.paid_off = paid_off
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         dictionary = {
             "id": self.id,
             "title": self.title,
@@ -21,13 +21,13 @@ class Debt:
         return dictionary
 
 class Payment:
-    def __init__(self, id, reciever, amount, date):
+    def __init__(self, id, reciever, amount, date) -> None:
         self.id = id
         self.reciever = reciever
         self.amount = int(amount)
         self.date = date
     
-    def to_dict(self):
+    def to_dict(self) -> dict:
         dictionary = {
             "id": self.id,
             "reciever": self.reciever,
