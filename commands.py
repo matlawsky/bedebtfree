@@ -1,10 +1,11 @@
+
 from classes import Debt
 from classes import Payment
 import json
 
 
 ###
-def print_menu():
+def print_menu() -> None:
     print("Press the button assigned to desired actions listed below:")
     print("0    -   create a debt")
     print("1    -   make payment")
@@ -21,7 +22,7 @@ def print_menu():
 ###### DEBT part
 
 ###
-def input_debt_info():
+def input_debt_info() -> dict:
     _id = input("ID: ")
     title = input("Title of the debt: ")
     to_whom = input("To whom you owe? ")
@@ -37,7 +38,7 @@ def input_debt_info():
         }
 
 ###
-def create_debt():
+def create_debt() -> Debt:
     print("Please enter your debt info")
     debt_input = input_debt_info()
     debt = Debt(debt_input['id'], debt_input['title'], debt_input['to_whom'], 
@@ -47,7 +48,7 @@ def create_debt():
     return debt
 
 ###
-def save_debts(debts):
+def save_debts(debts) -> None:
     json_debts = []
     for debt in debts:
         json_debts.append(debt.to_dict())
@@ -58,7 +59,7 @@ def save_debts(debts):
         print("error: saving the debts")
 
 ###
-def load_debts():
+def load_debts() -> list:
     try:
         file = open("debts.dat", "r")
         loaded_debts = json.loads(file.read())
@@ -73,14 +74,14 @@ def load_debts():
         print("the file doesnt exist or an error occured during loading")
 
 ###
-def find_debt_by_id(debts, id):
+def find_debt_by_id(debts, id) -> int:
     for index, debt in enumerate(debts):
         if debt.id == id:
             return index
     return None
 
 ###
-def find_debts_to_id_list(debts, to_whom):
+def find_debts_to_id_list(debts, to_whom) -> list:
     whom_id_list = []
     for debt in debts:
         if (debt.to_whom).lower() == to_whom.lower():
@@ -88,7 +89,7 @@ def find_debts_to_id_list(debts, to_whom):
     return whom_id_list
 
 ###
-def find_debts_to_debt_list(debts, to_whom):
+def find_debts_to_debt_list(debts, to_whom) -> list:
     whom_debt_list = []
     for debt in debts:
         if (debt.to_whom).lower() == to_whom.lower():
@@ -96,7 +97,7 @@ def find_debts_to_debt_list(debts, to_whom):
     return whom_debt_list
 
 ###
-def show_group_by_id(debts, group_ids):
+def show_group_by_id(debts, group_ids) -> list:
     groups = []
     for debt in debts:
         for one in group_ids:
@@ -105,7 +106,7 @@ def show_group_by_id(debts, group_ids):
     return groups
 
 ###
-def paid_debt(debts):
+def paid_debt(debts) -> None:
     id = input("enter id of the debt you want to issue")
     index = find_debt_by_id(debts, id)
     if index != None:
@@ -114,7 +115,7 @@ def paid_debt(debts):
     else:
         print("haven't find debt")
 
-def update_debt(debts):
+def update_debt(debts) -> None:
     id = input("enter id of the debt you want to issue")
     index = find_debt_by_id(debts, id)
     if index != None:
@@ -130,7 +131,7 @@ def update_debt(debts):
 ###### PAYMENTS part
 
 ###
-def find_payment_by_id(payments, id):
+def find_payment_by_id(payments, id) -> int:
     for index, payment in enumerate(payments):
         if payment.id == id:
             return index
@@ -150,7 +151,7 @@ def input_payment():
         }
 
 ###
-def create_payment():
+def create_payment() -> Payment:
     print("Please enter your payment info")
     payment_input = input_payment()
     _payment = Payment(payment_input['id'], payment_input['reciever'], 
@@ -160,7 +161,7 @@ def create_payment():
     return _payment
 
 ###
-def save_payments(payments):
+def save_payments(payments) -> None:
     json_payments = []
     for pay in payments:
         json_payments.append(pay.to_dict())
@@ -171,7 +172,7 @@ def save_payments(payments):
         print("error: saving the payments")
 
 ###
-def load_payments():
+def load_payments() -> list:
     try:
         file = open("payments.dat", "r")
         loaded_payments = json.loads(file.read())
@@ -185,7 +186,7 @@ def load_payments():
     except:
         print("the file doesnt exist or an error occured during loading")
 
-def update_payment(payment):
+def update_payment(payment) -> None:
     id = input("enter id of the payment you want to issue")
     index = find_payment_by_id(payment, id)
     if index != None:
@@ -198,7 +199,7 @@ def update_payment(payment):
         print("There is no such index")
 
 ###
-def find_debts_to_id_list(debts, to_whom):
+def find_debts_to_id_list(debts, to_whom) -> list:
     whom_id_list = []
     for debt in debts:
         if (debt.to_whom).lower() == to_whom.lower():
@@ -208,28 +209,28 @@ def find_debts_to_id_list(debts, to_whom):
 ##### GENERAL part
 
 ###
-def save_operations(debts, payments):
+def save_operations(debts, payments) -> None:
     save_debts(debts)
     save_payments(payments)
 
 ###
-def load_operations():
+def load_operations() -> list:
     debts = load_debts()
     payments = load_payments()
     return [debts, payments]
 
 ###
-def debt_list(debts):
+def debt_list(debts) -> None:
     for debt in debts:
         print(debt.to_dict())
 
 ###
-def payment_list(payments):
+def payment_list(payments) -> None:
     for payment in payments:
         print(payment.to_dict())
 
 ###
-def show_overall(debts, payments):
+def show_overall(debts, payments) -> None:
     # show debts and payments by reciever
     overall = 0 
     receivers = []
@@ -274,11 +275,11 @@ def show_overall(debts, payments):
         print(f"you still owe people {overall} money\n")        
 
 ###
-def show_all_debts(debts):
+def show_all_debts(debts) -> None:
     for debt in debts:
         print(debt.to_dict())
 
 ###
-def show_all_payments(payments):
+def show_all_payments(payments) -> None:
     for payment in payments:
         print(payment.to_dict())
