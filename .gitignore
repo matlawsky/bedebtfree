@@ -2,3 +2,4 @@ venv
 .vscode
 debts.dat
 payments.dat
+__pycache__
