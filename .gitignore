@@ -3,3 +3,4 @@ venv
 debts.dat
 payments.dat
 __pycache__
+*.ui
