@@ -1,3 +1,8 @@
+class Person:
+    def __init__(self, name, surname, account_number) -> None:
+        self.id = id
+        self.name = name
+        self.account_number = account_number
 class Debt:
     def __init__(self, id, title, to_whom, how_much, date, paid=False, paid_off=0) -> None:
         self.id = id
